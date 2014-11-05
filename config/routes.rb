@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
   delete '/auth/signout', to: 'sessions#destroy'
 
+  resources :users 
+
+  resources :photos
+
+
   root 'welcome#index'
 
   # Example of regular route:

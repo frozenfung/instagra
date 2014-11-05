@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 
 
-
+gem "paperclip", "~> 4.2"
 gem 'omniauth-facebook'
 
 gem 'kaminari'

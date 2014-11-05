@@ -1,0 +1,20 @@
+<table>
+
+My Photos
+<% @photos.each do |photo| %>
+  <tr>
+    <td><%= image_tag photo.img(:medium) %></td>
+  </tr>
+  <tr>
+    <td><%= photo.title %></td>
+    <td>
+      <%= link_to 'edit', edit_photo_path(photo) %>
+      <%= link_to 'delete', photo_path(photo), :method => :delete %>
+    </td>
+  </tr>
+
+<% end %>
+
+</table>
+
+<%= link_to 'Back to Instagra', root_path %>
