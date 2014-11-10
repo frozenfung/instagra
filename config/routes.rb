@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :photos do
     post :like
     post :unlike
+    post :subscribe
+    post :unsubscribe
   end
   resources :comments
 

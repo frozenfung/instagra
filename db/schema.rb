@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107075721) do
+ActiveRecord::Schema.define(version: 20141110063917) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20141107075721) do
     t.integer  "img_file_size"
     t.datetime "img_updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "subscribes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "photo_id"
+    t.boolean  "subscribed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

@@ -3,17 +3,31 @@
 <table>
     <tr>
       <td><%= p.user.name %></td>
-      <% if p.user.like_this_photo?(p) == true %>
-        <td>
-          <%= link_to 'Unlike', photo_unlike_path(p), :method => :post %>
-          <%= p.count_likes(p) %>
-        </td>
+    </tr>
+    <tr>
+      <% if current_user %>
+        <% if p.user.like_this_photo?(p) %>
+          <td>
+            <%= link_to 'Unlike', photo_unlike_path(p), :method => :post %>
+            <%= p.count_likes(p) %>
+          </td>
 
-      <% else %>
-        <td>
-          <%= link_to 'Like', photo_like_path(p), :method => :post  %>
-          <%= p.count_likes(p) %>
-        </td>
+        <% else %>
+          <td>
+            <%= link_to 'Like', photo_like_path(p), :method => :post  %>
+            <%= p.count_likes(p) %>
+          </td>
+        <% end %>
+        <% if p.user.subscribe_this_photo?(p) %>
+          <td>
+            <%= link_to 'Unsubscribe', photo_unsubscribe_path(p), :method => :post %>
+          </td>
+        <% else %>
+          <td>
+            <%= link_to 'Subscribe', photo_subscribe_path(p), :method => :post  %>
+          </td>
+        <% end %>
+
       <% end %>
     </tr>
     <tr>

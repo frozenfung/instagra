@@ -1,15 +1,20 @@
 class User < ActiveRecord::Base
 
-	has_many :photos
+
 
 	has_many :comments
 
+  has_many :photos, :dependent => :destroy
 	has_many :created_photos, :foreign_key => "user_id", :class_name => "Photo"
 
 	# has_many :commented_photos, :through => :comments, :source => :photo # which user comment
 
 	has_many :likes
 	has_many :like_photos, :through => :likes, source: :photos
+
+  has_many :subscribe
+  has_many :subscription_photos, :through => :subscribe, :source => :photos
+
 
   def like_this_photo?(p)
     @like = Like.where(:photo_id => p.id, :user_id => self.id)
@@ -19,6 +24,18 @@ class User < ActiveRecord::Base
       false
     end
   end
+
+  def subscribe_this_photo?(p)
+    @subscribe = Subscribe.where(:photo_id => p.id, :user_id => self.id)
+    if @subscribe.count == 1
+      true
+    else
+      false
+    end
+
+  end
+
+
 
 	def self.from_omniauth(auth_hash)
 		user = where( :fb_uid => auth_hash[:uid] ).first_or_initialize
