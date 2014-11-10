@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106092057) do
+ActiveRecord::Schema.define(version: 20141107075721) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "photo_id"
     t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "photo_id"
+    t.boolean  "liked",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

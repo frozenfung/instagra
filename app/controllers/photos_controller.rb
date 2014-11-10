@@ -1,6 +1,10 @@
 class PhotosController < ApplicationController
 
-  before_action :set_photo, :only => [:destroy]
+  before_action :check_login
+
+  before_action :set_photo, :only => [:destroy, :like, :unlike]
+
+
 
   def create
     @photo = Photo.new(photo_params)
@@ -11,7 +15,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = current_user.photos.includes(:comments) if current_user
+    @photos = current_user.photos.order("created_at DESC").includes(:comments) if current_user
   end
 
   def destroy
@@ -19,10 +23,31 @@ class PhotosController < ApplicationController
     redirect_to photos_path
   end
 
+  def like
+    like = Like.new
+    like.user = current_user
+    like.photo = @photo
+    like.liked = true
+    like.save
+    redirect_to :root
+  end
+
+  def unlike
+    @like = Like.where(:photo_id => @photo.id, :user_id => current_user.id)
+    @like.destroy_all
+    redirect_to :root
+  end
+
+
   protected
 
+  def check_login
+    redirect_to :root unless current_user
+  end
+
+
   def set_photo
-    @photo = Photo.find(params[:id])
+    @photo = Photo.find(params[:photo_id])
   end
 
   def photo_params

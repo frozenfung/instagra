@@ -1,6 +1,6 @@
 <%= link_to 'Back', root_path %>
 <% @photos.each do |p| %>
-<%= form_for Comment.new, :url => comments_path() do |c| %>
+<%= form_for Comment.new, :url => comments_path do |c| %>
 <table>
 
     <tr>

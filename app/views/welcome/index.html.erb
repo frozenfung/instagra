@@ -1,6 +1,6 @@
 <% if current_user %>
   Hi, <%= current_user.name %>
-  <%= link_to 'My Photos', photos_path%>
+  <%= link_to 'My Photos', user_path(current_user)%>
   <%= link_to "登出", auth_signout_path, :method => :delete %></a>
   <%= form_for Photo.new, :url => photos_path, :html => { :multipart => true } do |form| %>
   <%= form.label :description, 'description' %>
@@ -16,31 +16,7 @@
 
 <br>
 <br>
-<% @photos.each do |p| %>
-<%= form_for Comment.new, :url => comments_path() do |c| %>
-<table>
-    <tr>
-      <td><%= p.user.name %></td>
-    </tr>
-    <tr>
-      <td><%= image_tag p.img.url(:medium) %></td>
-    </tr>
-    <tr>
-      <td><%= p.description %></td>
-    </tr>
-    <% p.comments.each do |c| %>
-    <tr>
-        <td><%= c.user.name %>&nbsp;&nbsp;&nbsp;:</td><td><%= c.content %></td>
-    </tr>
-    <% end %>
-</table>
-<tr>
-    <%= c.hidden_field :photo_id, :value => p.id %>
-    <%= c.text_field :content %>
-    <%= c.submit 'Comment' %>
-</tr>
-<% end %>
-<% end %>
+<%= render :partial => 'partial/photos' %>
 
 
 

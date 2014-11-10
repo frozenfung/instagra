@@ -1,7 +1,6 @@
 class WelcomeController < ApplicationController
 	def index
-    @photos = Photo.all
-
+    @photos = Photo.order("created_at DESC")
 
 	end
 end

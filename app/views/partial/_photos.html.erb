@@ -1,0 +1,42 @@
+<% @photos.each do |p| %>
+<%= form_for Comment.new, :url => comments_path(p) do |c| %>
+<table>
+    <tr>
+      <td><%= p.user.name %></td>
+      <% if p.user.like_this_photo?(p) == true %>
+        <td>
+          <%= link_to 'Unlike', photo_unlike_path(p), :method => :post %>
+          <%= p.count_likes(p) %>
+        </td>
+
+      <% else %>
+        <td>
+          <%= link_to 'Like', photo_like_path(p), :method => :post  %>
+          <%= p.count_likes(p) %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td colspan='2'><%= image_tag p.img.url(:medium) %></td>
+    </tr>
+    <% if p.user == current_user %>
+    <tr>
+      <td><%= p.description %></td>
+      <td><%= link_to 'Delete Image', photo_path(p), :method => :delete %></td>
+    </tr>
+    <% end %>
+    <% p.comments.each do |c| %>
+    <tr>
+        <td><%= c.user.name %>&nbsp;&nbsp;&nbsp;:</td><td><%= c.content %></td>
+    </tr>
+    <% end %>
+
+</table>
+    <% if current_user %>
+    <tr>
+        <%= c.text_field :content %>
+        <%= c.submit 'Comment' %>
+    </tr>
+    <% end %>
+<% end %>
+<% end %>
