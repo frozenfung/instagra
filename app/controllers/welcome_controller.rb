@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @photos = Photo.all
+    @photos = Photo.includes(:comments).all
   end
 end

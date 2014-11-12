@@ -22,5 +22,21 @@
     <tr>
       <td><%= p.title %></td>
     </tr>
+    <% p.comments.each do |c| %>
+    <tr>
+      <td><%= c.content %></td>
+      <td><%= c.user %></td>
+    </tr>
+    <% end %>
+    <tr>
+      <%= form_for Comment.new, :url => comments_path(@photo, @comment) do |com| %>
+      <td>
+        <%= com.text_field :content %>
+      </td>
+      <td>
+        <%= com.submit 'Comment' %>
+      </td>
+      <% end %>
+    </tr>
   <% end %>
 </table>
