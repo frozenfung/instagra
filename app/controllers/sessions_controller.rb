@@ -1,8 +1,4 @@
 class SessionsController < ApplicationController
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/master
   def create
     Rails.logger.debug( env["omniauth.auth"] )
     user = User.from_omniauth(auth_hash)
