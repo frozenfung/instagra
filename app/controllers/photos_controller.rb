@@ -1,12 +1,7 @@
 class PhotosController < ApplicationController
 
-
 before_action :check_login
-
-before_action :set_photo, :only => [:destroy, :like, :unlike, :subscribe, :unsubscribe]
-
-
-
+before_action :set_photo, :only => [:like, :unlike, :subscribe, :unsubscribe]
 
   def create
     @photo = Photo.new(photo_params)
@@ -21,6 +16,7 @@ before_action :set_photo, :only => [:destroy, :like, :unlike, :subscribe, :unsub
   end
 
   def destroy
+    @photo = Photo.find(params[:id])
     @photo.destroy
     redirect_to photos_path
   end
@@ -36,8 +32,8 @@ before_action :set_photo, :only => [:destroy, :like, :unlike, :subscribe, :unsub
   end
 
   def unlike
-    @like = Like.where(:photo_id => @photo.id, :user_id => current_user.id)
-    @like.destroy_all
+    @like = Like.where(:photo_id => @photo.id, :user_id => current_user.id).first
+    @like.destroy
     redirect_to :root
   end
 
@@ -69,7 +65,7 @@ before_action :set_photo, :only => [:destroy, :like, :unlike, :subscribe, :unsub
   end
 
   def photo_params
-    params.require(:photo).permit(:description, :img)
+    params.require(:photo).permit(:description, :img, :tag_name)
   end
 
 

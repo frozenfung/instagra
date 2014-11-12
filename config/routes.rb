@@ -16,18 +16,6 @@ Rails.application.routes.draw do
   end
   resources :comments
 
-  # You can have the root of your site routed with "root"
-  get '/auth/:provider/callback', :to => 'sessions#create'
-  get '/auth/failure', to: 'sessions#failure'
-  delete '/auth/signout', to: 'sessions#destroy'
-
-  resources :users 
-
-  resources :photos
-
-
-  root 'welcome#index'
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

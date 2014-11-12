@@ -13,19 +13,18 @@ class User < ActiveRecord::Base
   has_many :subscribe
   has_many :subscription_photos, :through => :subscribe, :source => :photos
 
-
-  def like_this_photo?(p)
-    @like = Like.where(:photo_id => p.id, :user_id => self.id)
-    if @like.count == 1
+  def like_this_photo?(p, uid)
+    @like = Like.where(:photo_id => p.id, :user_id => uid)
+    if @like.count > 0
       true
     else
       false
     end
   end
 
-  def subscribe_this_photo?(p)
-    @subscribe = Subscribe.where(:photo_id => p.id, :user_id => self.id)
-    if @subscribe.count == 1
+  def subscribe_this_photo?(p, uid)
+    @subscribe = Subscribe.where(:photo_id => p.id, :user_id => uid)
+    if @subscribe.count > 0
       true
     else
       false
