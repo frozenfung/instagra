@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  get '/auth/:provider/callback', :to => 'sessions#create'
+  get '/auth/failure', to: 'sessions#failure'
+  delete '/auth/signout', to: 'sessions#destroy'
+
+  root 'welcome#index'
+
+  resources :users
+  resources :photos do
+    post :like
+    post :unlike
+    post :subscribe
+    post :unsubscribe
+  end
+  resources :comments
 
   # You can have the root of your site routed with "root"
   get '/auth/:provider/callback', :to => 'sessions#create'

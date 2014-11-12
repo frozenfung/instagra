@@ -1,42 +1,28 @@
 <% if current_user %>
   Hi, <%= current_user.name %>
+
+  <%= link_to 'My Photos', user_path(current_user)%>
   <%= link_to "登出", auth_signout_path, :method => :delete %></a>
-    <%= form_for Photo.new, :url => photos_path(@photo), :html => { :multipart => true } do |form| %>
-      <%= form.label :title, 'Title' %>
-      <%= form.text_field :title%>
-      <%= form.file_field :img %>
-      <%= form.submit 'Upload'%>
-    <% end %>
-    <%= link_to 'My Photos', photos_path %>
+  <%= form_for Photo.new, :url => photos_path, :html => { :multipart => true } do |form| %>
+  <%= form.label :description, 'description' %>
+  <%= form.text_field :description %>
+  <br>
+  <%= form.file_field :img %>
+  <%= form.submit 'Upload'%>
+<% end %>
+
 <% else %>
   <%= link_to "Facebook 登入", "/auth/facebook" %></a>
 <% end %>
 
 
+<br>
+<br>
+<%= render :partial => 'partial/photos' %>
 
-<table>
-  <% @photos.each do |p| %>
-    <tr>
-      <td><%= image_tag p.img.url(:medium) %></td>
-    </tr>
-    <tr>
-      <td><%= p.title %></td>
-    </tr>
-    <% p.comments.each do |c| %>
-    <tr>
-      <td><%= c.content %></td>
-      <td><%= c.user %></td>
-    </tr>
-    <% end %>
-    <tr>
-      <%= form_for Comment.new, :url => comments_path(@photo, @comment) do |com| %>
-      <td>
-        <%= com.text_field :content %>
-      </td>
-      <td>
-        <%= com.submit 'Comment' %>
-      </td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+
+
+
+
+
+

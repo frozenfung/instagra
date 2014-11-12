@@ -55,9 +55,12 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (1.0.0)
+<<<<<<< HEAD
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+=======
+>>>>>>> refs/remotes/origin/master
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
@@ -65,7 +68,10 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+<<<<<<< HEAD
     mysql2 (0.3.16)
+=======
+>>>>>>> refs/remotes/origin/master
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -145,8 +151,11 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
+<<<<<<< HEAD
   kaminari
   mysql2
+=======
+>>>>>>> refs/remotes/origin/master
   omniauth-facebook
   paperclip (~> 4.2)
   rails (= 4.1.6)

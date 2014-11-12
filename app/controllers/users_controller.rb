@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
-  def update
-    if current_user.update( user_params )
-      redirect_to :root 
-    else
-      redirect_to :root 
-    end
+
+  before_action :set_user, :only => [:show]
+
+  def show
+    @photos = @user.created_photos.order("created_at DESC")
   end
 
-  def edit
+  private
+
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
-
-  protected
-
-  def user_params
-    params.require(:user).permit(:avatar)
-  end  
+  def params_user
+    params.require(:user).permit(:id)
+  end
 end

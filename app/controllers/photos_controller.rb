@@ -1,28 +1,23 @@
 class PhotosController < ApplicationController
 
-  before_action :set_my_photo, :only => [:edit, :update, :destroy]
+
+before_action :check_login
+
+before_action :set_photo, :only => [:destroy, :like, :unlike, :subscribe, :unsubscribe]
+
+
 
 
   def create
     @photo = Photo.new(photo_params)
     @photo.user = current_user
-    if @photo.save
-      redirect_to :root
-    else
-      render :root
-    end
+    @photo.save
+
+    redirect_to :root
   end
 
-  def edit
-
-  end
-
-  def update
-    if @photo.update(photo_params)
-      redirect_to photos_path
-    else
-      render :action => :edit
-    end
+  def index
+    @photos = current_user.photos.order("created_at DESC").includes(:comments) if current_user
   end
 
   def destroy
@@ -30,22 +25,52 @@ class PhotosController < ApplicationController
     redirect_to photos_path
   end
 
-  def index
-    if current_user
-      @photos = current_user.photos
-    else
-      redirect_to :root
-    end
+
+  def like
+    like = Like.new
+    like.user = current_user
+    like.photo = @photo
+    like.liked = true
+    like.save
+    redirect_to :root
   end
+
+  def unlike
+    @like = Like.where(:photo_id => @photo.id, :user_id => current_user.id)
+    @like.destroy_all
+    redirect_to :root
+  end
+
+  def subscribe
+    subscribe = Subscribe.new
+    subscribe.user = current_user
+    subscribe.photo = @photo
+    subscribe.subscribed = true
+    subscribe.save
+    redirect_to :root
+  end
+
+  def unsubscribe
+    @subscribe = Subscribe.where(:photo_id => @photo.id, :user_id => current_user.id)
+    @subscribe.destroy_all
+    redirect_to :root
+  end
+
 
   protected
 
-  def set_my_photo
-    @photo = current_user.photos.find(params[:id])
+  def check_login
+    redirect_to :root unless current_user
+  end
+
+
+  def set_photo
+    @photo = Photo.find(params[:photo_id])
   end
 
   def photo_params
-    params.require(:photo).permit(:img, :title)
-  end 
+    params.require(:photo).permit(:description, :img)
+  end
+
 
 end
