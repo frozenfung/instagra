@@ -1,0 +1,44 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.container{
+  width: 60%;
+  margin: auto;
+}
+
+a:hover{
+  color: black;
+  text-decoration: none;
+}
+
+nav{
+  position:fixed;
+  height: 70px;
+  background-color: white;
+  overflow: default;
+  box-shadow: 0 0 3px 3px;
+}
+
+nav>h3{
+  float: left;
+  margin-left: 50px;
+}
+
+nav>div{
+  margin-left: 1000px;
+  width: 500px;
+  margin-top: 20px;
+  position: relative;
+}
+
+nav>div>div{
+  position: absolute;
+  top: 0;
+  left: -175%;
+}
+
+#photo_img{
+  float: left;
+  margin-left: 100px;
+}
+

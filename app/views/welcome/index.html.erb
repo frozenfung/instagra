@@ -1,28 +1,5 @@
-<% if current_user %>
-  Hi, <%= current_user.name %>
-
-  <%= link_to 'My Photos', user_path(current_user)%>
-  <%= link_to "登出", auth_signout_path, :method => :delete %></a>
-  <%= form_for Photo.new, :url => photos_path, :html => { :multipart => true } do |form| %>
-  <%= form.label :description, 'description' %>
-  <%= form.text_field :description %>
-  <br>
-  <%= form.file_field :img %>
-  <%= form.submit 'Upload'%>
-<% end %>
-
-<% else %>
-  <%= link_to "Facebook 登入", "/auth/facebook" %></a>
-<% end %>
-
-
-<br>
-<br>
-<%= render :partial => 'partial/photos' %>
-
-
-
-
-
+<div class='container'>
+  <%= render :partial => 'partial/photos' %>
+</div>
 
 

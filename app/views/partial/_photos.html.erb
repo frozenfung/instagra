@@ -1,12 +1,14 @@
+<br><br><br><br><br>
 <% @photos.each do |p| %>
-<%= form_for Comment.new, :url => comments_path(p) do |c| %>
-<table>
+<%= form_for Comment.new, :url => comments_path( :photo_id => p.id ) do |c| %>
+<table class='table table-hover'>
     <tr>
       <td><%= p.user.name %></td>
+      <td></td>
     </tr>
     <tr>
       <% if current_user %>
-        <% if p.user.like_this_photo?(p) %>
+        <% if p.user.like_this_photo?(p, current_user.id) %>
           <td>
             <%= link_to 'Unlike', photo_unlike_path(p), :method => :post %>
             <%= p.count_likes(p) %>
@@ -18,7 +20,7 @@
             <%= p.count_likes(p) %>
           </td>
         <% end %>
-        <% if p.user.subscribe_this_photo?(p) %>
+        <% if p.user.subscribe_this_photo?(p, current_user.id) %>
           <td>
             <%= link_to 'Unsubscribe', photo_unsubscribe_path(p), :method => :post %>
           </td>
@@ -35,7 +37,12 @@
     </tr>
     <% if p.user == current_user %>
     <tr>
-      <td><%= p.description %></td>
+      <td>
+        <%= p.description %>
+        <% p.tags.each do |t| %>
+          <%= link_to "##{t.name}", root_path(:tag => t.name) %>
+        <% end %>
+      </td>
       <td><%= link_to 'Delete Image', photo_path(p), :method => :delete %></td>
     </tr>
     <% end %>
@@ -44,7 +51,6 @@
         <td><%= c.user.name %>&nbsp;&nbsp;&nbsp;:</td><td><%= c.content %></td>
     </tr>
     <% end %>
-
 </table>
     <% if current_user %>
     <tr>
@@ -52,5 +58,6 @@
         <%= c.submit 'Comment' %>
     </tr>
     <% end %>
+<br><br><br>
 <% end %>
 <% end %>

@@ -8,6 +8,32 @@
 </head>
 <body>
 
+<nav>
+  <h3>
+    <%= link_to 'Instagra', root_path %>
+
+  </h3>
+  <div>
+  <% if current_user %>
+    <div>
+      <%= form_for Photo.new, :url => photos_path, :html => { :class => 'form-inline', :multipart => true } do |form| %>
+        <%= form.file_field :img %>
+        <%= form.label :description, 'description' %>
+        <%= form.text_field :description %>
+        <%= form.label :tags, 'tags' %>
+        <%= form.text_field :tag_name %> 
+        <%= form.submit 'Upload', :class => 'btn btn-default'%>
+      <% end %>
+    </div>
+    <%= link_to 'My Photos', user_path(current_user), :class => 'btn btn-info'%>
+    <%= link_to 'My Subscription', user_path(current_user), :class => 'btn btn-primary'%>
+    <%= link_to "登出", auth_signout_path, :method => :delete, :class => 'btn btn-warning' %>
+    <span> Hi, <%= current_user.name %> </span>
+  <% else %>
+    <%= link_to "Facebook 登入", "/auth/facebook", :class => 'btn btn-primary' %>
+  <% end %>
+  </div>
+</nav>
 <%= yield %>
 
 </body>
