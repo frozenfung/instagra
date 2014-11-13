@@ -25,6 +25,7 @@ class Photo < ActiveRecord::Base
   end
 
   def tag_name
+    # for edit form
   end
 
   def tag_name=(tag_names)

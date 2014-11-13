@@ -10,6 +10,13 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def switch
+    other_user = User.where.not(id: session[:user_id]).first
+    reset_session
+    session[:user_id] = other_user.id
+    redirect_to root_path
+  end
+
   def failure
     Rails.logger.debug( env["omniauth.auth"] )
 

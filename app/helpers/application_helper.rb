@@ -1,10 +1,9 @@
 module ApplicationHelper
-  def like_this_photo?(p)
-    @like = Like.where(:photo_id => p.id, :user_id => current_user.id)
-    if @like.count > 0
-      true
-    else
-      false
-    end
+
+  def tags_link_to(tags)    
+    tags.map{ |t|
+      link_to("##{t.name}", root_path(:tag => t.name))
+    }.join(" ").html_safe
   end
+
 end

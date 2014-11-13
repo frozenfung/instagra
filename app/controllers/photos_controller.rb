@@ -18,22 +18,23 @@ before_action :set_photo, :only => [:like, :unlike, :subscribe, :unsubscribe]
   def destroy
     @photo = Photo.find(params[:id])
     @photo.destroy
-    redirect_to photos_path
+    redirect_to root_path
   end
 
-
   def like
-    like = Like.new
-    like.user = current_user
-    like.photo = @photo
-    like.liked = true
-    like.save
+    unless current_user.like_this_photo?(@photo) 
+      like = current_user.likes.new
+      like.photo = @photo
+      # like.liked = true
+      like.save
+    end
     redirect_to :root
   end
 
   def unlike
-    @like = Like.where(:photo_id => @photo.id, :user_id => current_user.id).first
+    @like = current_user.find_photo_like(@photo)
     @like.destroy
+
     redirect_to :root
   end
 
@@ -43,6 +44,7 @@ before_action :set_photo, :only => [:like, :unlike, :subscribe, :unsubscribe]
     subscribe.photo = @photo
     subscribe.subscribed = true
     subscribe.save
+
     redirect_to :root
   end
 

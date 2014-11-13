@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     @comment = @photo.comments.new(comment_param)
     @comment.user = current_user
     @comment.save
+
     redirect_to :root
   end
 

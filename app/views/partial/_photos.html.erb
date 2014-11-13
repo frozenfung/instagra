@@ -8,7 +8,9 @@
     </tr>
     <tr>
       <% if current_user %>
-        <% if p.user.like_this_photo?(p, current_user.id) %>
+
+        <% if current_user.like_this_photo?(p) %>
+
           <td>
             <%= link_to 'Unlike', photo_unlike_path(p), :method => :post %>
             <%= p.count_likes(p) %>
@@ -20,7 +22,7 @@
             <%= p.count_likes(p) %>
           </td>
         <% end %>
-        <% if p.user.subscribe_this_photo?(p, current_user.id) %>
+        <% if current_user.subscribe_this_photo?(p)%>
           <td>
             <%= link_to 'Unsubscribe', photo_unsubscribe_path(p), :method => :post %>
           </td>
@@ -39,9 +41,7 @@
     <tr>
       <td>
         <%= p.description %>
-        <% p.tags.each do |t| %>
-          <%= link_to "##{t.name}", root_path(:tag => t.name) %>
-        <% end %>
+        <%= tags_link_to p.tags %>
       </td>
       <td><%= link_to 'Delete Image', photo_path(p), :method => :delete %></td>
     </tr>
