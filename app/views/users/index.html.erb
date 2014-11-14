@@ -1,0 +1,36 @@
+<div class="container">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1>All Users</h1>
+  <table class='table table-hover'>
+    <% @users.each do |u|%>
+    <tr>
+      <td><%= u.name %></td>
+      <% unless u == current_user %>
+        <% case current_user.friend_ship?(u)%>
+        <% when 'friend'%>
+          <td>Already friend</td>
+          <td><%= link_to 'Delete', user_cancel_friend_path(u), :method => :post, :class=>'btn btn-default'%></td>
+        <% when nil %>
+          <td><%= link_to 'send request', user_add_friend_path(u), :method => :post, :class=>'btn btn-default' %></td>
+          <td></td>
+        <% when 'deliver' %>
+          <td>wait for replication</td>
+          <td></td>
+        <% else %>
+          <% if current_user.request_checked?(u) %>
+            <td><%= link_to 'Accept', user_confirm_friend_path(u), :method => :post, :class=>'btn btn-primary'%></td>
+            <td>You ignored this user!!!</td>
+          <% else %>
+            <td><%= link_to 'Accept', user_confirm_friend_path(u), :method => :post, :class=>'btn btn-primary'%></td>
+            <td><%= link_to 'Ignore', user_ignore_friend_path(u), :method => :post, :class=>'btn btn-danger'%></td>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+</div>

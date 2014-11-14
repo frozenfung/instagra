@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113034122) do
+ActiveRecord::Schema.define(version: 20141113153017) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20141113034122) do
     t.string   "status",     default: "pending"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "checked",    default: false
+    t.integer  "founder"
   end
 
   create_table "likes", force: true do |t|

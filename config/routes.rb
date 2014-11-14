@@ -8,7 +8,13 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  resources :users
+  resources :users do
+    post :add_friend
+    post :cancel_friend
+    post :ignore_friend
+    post :confirm_friend
+  end
+
   resources :photos do
     post :like
     post :unlike

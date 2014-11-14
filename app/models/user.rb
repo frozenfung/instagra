@@ -1,3 +1,4 @@
+
 class User < ActiveRecord::Base
 
 	has_many :comments
@@ -34,6 +35,31 @@ class User < ActiveRecord::Base
     subscribe = find_photo_subscription(photo)
     subscribe.present?
   end
+
+  def make_friend(user)
+
+  end
+
+  # def find_frienship
+  def find_ship(user)
+    self.friendships.where(:friend_id => user.id).first
+  end 
+
+  # def mutual_friendship_status(user)
+  def friend_ship?(user)
+    friendship = find_ship(user)
+    if friendship
+      friendship.get_status(self) 
+    else
+      nil
+    end
+  end
+
+  def request_checked?(user)
+    return true if find_ship(user).checked
+    return false
+  end
+
 
 	def self.from_omniauth(auth_hash)
 		user = where( :fb_uid => auth_hash[:uid] ).first_or_initialize
