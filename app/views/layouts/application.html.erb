@@ -21,7 +21,7 @@
         <%= form.label :description, 'description' %>
         <%= form.text_field :description %>
         <%= form.label :tags, 'tags' %>
-        <%= form.text_field :tag_name %> 
+        <%= form.autocomplete_field :tag_name, autocomplete_tag_name_photos_path %>
         <%= form.submit 'Upload', :class => 'btn btn-default'%>
       <% end %>
     </div>
@@ -35,7 +35,7 @@
   </div>
 </nav>
 <div class='u'>
-  <%= link_to 'All Users', users_path, :class => 'btn btn-default' %> 
+  <%= link_to 'All Users', users_path, :class => 'btn btn-default' %>
   <br>
   <%= link_to 'Switch', auth_switch_path, :class => 'btn btn-default' %>
 </div>

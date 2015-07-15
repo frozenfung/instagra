@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :photos do
+    get :autocomplete_tag_name, :on => :collection
     post :like
     post :unlike
     post :subscribe

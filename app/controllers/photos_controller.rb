@@ -1,7 +1,9 @@
 class PhotosController < ApplicationController
 
-before_action :check_login
-before_action :set_photo, :only => [:like, :unlike, :subscribe, :unsubscribe]
+  before_action :check_login
+  before_action :set_photo, :only => [:like, :unlike, :subscribe, :unsubscribe]
+
+  autocomplete :tag, :name
 
   def create
     @photo = Photo.new(photo_params)
@@ -22,7 +24,7 @@ before_action :set_photo, :only => [:like, :unlike, :subscribe, :unsubscribe]
   end
 
   def like
-    unless current_user.like_this_photo?(@photo) 
+    unless current_user.like_this_photo?(@photo)
       like = current_user.likes.new
       like.photo = @photo
       # like.liked = true
