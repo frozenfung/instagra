@@ -4,7 +4,8 @@ development:
   database: instagra
   username: root
   host: localhost
-  password:
+  port: 13306
+  socket: /opt/boxen/data/socket
 production:
   adapter: mysql2
   encoding: utf8
